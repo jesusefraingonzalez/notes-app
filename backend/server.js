@@ -32,7 +32,7 @@ app.get('/api/notes', (req, res) => {
 // route for posting new notes
 app.post('/api/notes', (req, res) => {
     let newNote = JSON.stringify(req.body);
-    fs.writeFile(path.join(__dirname, 'db.json'), newNote, (err) => {
+    fs.appendFile(path.join(__dirname, 'db.json'), newNote, (err) => {
         if (err) throw err;
         console.log('new note written successfully');
         return newNote;
@@ -49,7 +49,6 @@ app.delete('/api/notes:id', (req, res) => {
         const noteExists = (noteObject) => {
             return noteObject.title === id;
         };
-
         console.log(data.find(noteExists));
     });
 });
