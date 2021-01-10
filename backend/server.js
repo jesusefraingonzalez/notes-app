@@ -1,6 +1,7 @@
 // require expressjs
 const express = require('express');
-const fs = require ('fs');
+const fs = require('fs');
+const path = require('path');
 
 // set up express
 const app = express();
@@ -16,22 +17,22 @@ app.use(express.json());
 
 // returns the notes.html file
 app.get('/notes', (req, res) => {
-    return ('../public/notes.html');
+    res.sendFile(path.join(__dirname, '..', 'public', 'notes.html'));
 });
 
 // returns the index.html file
 app.get('*', (req, res) => {
-    return ('../public/index.html');
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
 // route for getting notes
-app.get('/api/notes' , (req, res) => {
+app.get('/api/notes', (req, res) => {
 
 });
 
 // route for posting new notes
 app.post('/api/notes', (req, res) => {
-   
+
 });
 
 // route for deleting notes
@@ -40,6 +41,6 @@ app.delete('/api/notes:id', (req, res) => {
 });
 
 //starts server
-app.listen(PORT , () => {
+app.listen(PORT, () => {
     console.log(`Server now listening on port ${PORT}`);
 });
