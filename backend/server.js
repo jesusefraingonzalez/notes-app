@@ -9,30 +9,28 @@ const PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// //open db.json
-// fs.open('db.json', (err, fd) => {
-//     if (err) throw err;
-//     console.log(fd);
-// });
-
 // returns the notes.html file
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'notes.html'));
 });
 
 // returns the index.html file
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+// });
 
 // route for getting notes
 app.get('/api/notes', (req, res) => {
-
+    fs.readFile(path.join(__dirname, 'db.json') , (err, rawData) => {
+        if(err) throw err;
+        let notes = JSON.parse(rawData);
+        return res.json(notes);
+    });
 });
 
 // route for posting new notes
 app.post('/api/notes', (req, res) => {
-
+    let newNote = req.body;
 });
 
 // route for deleting notes
