@@ -15,14 +15,14 @@ app.get('/notes', (req, res) => {
 });
 
 // returns the index.html file
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
-// });
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+});
 
 // route for getting notes
 app.get('/api/notes', (req, res) => {
-    fs.readFile(path.join(__dirname, 'db.json') , (err, rawData) => {
-        if(err) throw err;
+    fs.readFile(path.join(__dirname, 'db.json'), (err, rawData) => {
+        if (err) throw err;
         let notes = JSON.parse(rawData);
         return res.json(notes);
     });
@@ -30,7 +30,12 @@ app.get('/api/notes', (req, res) => {
 
 // route for posting new notes
 app.post('/api/notes', (req, res) => {
-    let newNote = req.body;
+    let newNote = JSON.stringify(req.body);
+    fs.writeFile(path.join(__dirname, 'db.json'), newNote, (err) => {
+        if (err) throw err;
+        console.log('new note written successfully');
+        return newNote;
+    });
 });
 
 // route for deleting notes
