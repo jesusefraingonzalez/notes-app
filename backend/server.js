@@ -2,6 +2,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const { finished } = require('stream');
 
 // set up express
 const app = express();
@@ -40,7 +41,17 @@ app.post('/api/notes', (req, res) => {
 
 // route for deleting notes
 app.delete('/api/notes:id', (req, res) => {
+    let id = req.params.id;
+    fs.readFile(path.join(__dirname, 'db.json'), (err, rawData) => {
+        if (err) throw err;
+        let data = JSON.parse(rawData);
 
+        const noteExists = (noteObject) => {
+            return noteObject.title === id;
+        };
+
+        console.log(data.find(noteExists));
+    });
 });
 
 //starts server
