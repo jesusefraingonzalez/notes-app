@@ -35,10 +35,19 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     let newNote = req.body;
 
-    fs.appendFile(path.join(__dirname, 'db.json'), newNote, (err) => {
+    fs.readFile(path.join(__dirname, 'db.json'), newNote, (err, data) => {
         if (err) throw err;
-        console.log('new note written successfully');
-        return newNote;
+        //parse data from file into JSON
+        let json = JSON.parse(data);
+        
+        //push newNote data into json
+        json.push(newNote);
+
+        //write new json to file
+        fs.writeFile(path.join(__dirname , 'db.json'), JSON.stringify(json), (err) => {
+            if(err) throw err;
+            console.log(`${newNote.title} appended to file db.json`);
+        });
     });
 });
 
