@@ -9,6 +9,8 @@ const app = express();
 const PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// middleware
+app.use(express.static('public'));
 
 // returns the notes.html file
 app.get('/notes', (req, res) => {
@@ -31,7 +33,8 @@ app.get('/api/notes', (req, res) => {
 
 // route for posting new notes
 app.post('/api/notes', (req, res) => {
-    let newNote = JSON.stringify(req.body);
+    let newNote = req.body;
+
     fs.appendFile(path.join(__dirname, 'db.json'), newNote, (err) => {
         if (err) throw err;
         console.log('new note written successfully');
