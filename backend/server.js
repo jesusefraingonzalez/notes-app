@@ -49,7 +49,7 @@ app.post('/api/notes', (req, res) => {
             if (err) throw err;
             console.log(`${newNote.title} appended to file db.json`);
         });
-        return newNote;
+        return res.json(newNote);
     });
 });
 
@@ -72,7 +72,7 @@ app.delete('/api/notes/:id', (req, res) => {
     });
 });
 
-// returns the index.html file
+// catch all route
 app.get('*', (req, res) => {
     res.sendFile(path.join(PUBLIC_PATH, 'index.html'));
 });
