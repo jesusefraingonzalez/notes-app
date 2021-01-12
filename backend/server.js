@@ -22,11 +22,6 @@ app.get('/notes', (req, res) => {
     res.sendFile(path.join(PUBLIC_PATH, 'notes.html'));
 });
 
-// returns the index.html file
-app.get('*', (req, res) => {
-    res.sendFile(path.join(PUBLIC_PATH, 'index.html'));
-});
-
 // route for getting notes
 app.get('/api/notes', (req, res) => {
     fs.readFile(DB_PATH, (err, rawData) => {
@@ -75,6 +70,11 @@ app.delete('/api/notes/:id', (req, res) => {
         });
         res.send(`\n${id} deleted\n`)
     });
+});
+
+// returns the index.html file
+app.get('*', (req, res) => {
+    res.sendFile(path.join(PUBLIC_PATH, 'index.html'));
 });
 
 //starts server
