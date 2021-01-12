@@ -6,7 +6,7 @@ const crypto = require('crypto');
 
 // set up express
 const app = express();
-const PORT = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 
 //middleware
 app.use(express.urlencoded({ extended: true }));
