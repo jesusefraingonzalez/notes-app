@@ -58,7 +58,7 @@ app.post('/api/notes', (req, res) => {
             console.log(`${newNote.title} appended to file db.json`);
         });
         return res.json(newNote);
-    });
+    }); 
 });
 
 // route for deleting notes
@@ -69,14 +69,15 @@ app.delete('/api/notes/:id', (req, res) => {
         let json = JSON.parse(rawData);
         // remove all instances of the given id from the database
         json = JSON.stringify(json.filter(element => {
-            return !(element.title === id);
+            return !(element.id === id);
         }));
 
         fs.writeFile(DB_PATH, json, (err) => {
             if (err) throw err;
             console.log(`\nNote deleted from database:\n${id}\n`);
+            res.sendStatus(200);
         });
-        res.send(`\n${id} deleted\n`)
+        
     });
 });
 
