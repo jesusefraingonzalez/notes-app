@@ -2,7 +2,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const { finished } = require('stream');
+const crypto = require('crypto');
 
 // set up express
 const app = express();
@@ -40,6 +40,9 @@ app.post('/api/notes', (req, res) => {
 
         //parse data from file into JSON
         let json = JSON.parse(data);
+
+        //add unique id
+        newNote.id = crypto.randomBytes(32).toString('hex');
 
         //push newNote data into json
         json.push(newNote);
