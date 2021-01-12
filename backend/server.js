@@ -17,6 +17,11 @@ app.use(express.static('public'));
 const DB_PATH = path.join(__dirname, 'db.json');
 const PUBLIC_PATH = path.join(__dirname, '..', 'public');
 
+//creates db if it doesn't already exist
+if (!fs.existsSync(DB_PATH)) {
+    fs.writeFile(DB_PATH, '[]', err => { if (err) throw err });
+}
+
 // returns the notes.html file
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(PUBLIC_PATH, 'notes.html'));
@@ -69,7 +74,7 @@ app.delete('/api/notes/:id', (req, res) => {
 
         fs.writeFile(DB_PATH, json, (err) => {
             if (err) throw err;
-            console.log(`\nNote deleted from database:\n${id}\n`);     
+            console.log(`\nNote deleted from database:\n${id}\n`);
         });
         res.send(`\n${id} deleted\n`)
     });
