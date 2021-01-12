@@ -14,8 +14,8 @@ app.use(express.json());
 app.use(express.static('public'));
 
 //paths to database and public folder
-const DB_PATH = path.join(__dirname, 'db.json');
-const PUBLIC_PATH = path.join(__dirname, '..', 'public');
+const DB_PATH = path.join(__dirname, 'backend' , 'db.json');
+const PUBLIC_PATH = path.join(__dirname, 'public');
 
 //creates db if it doesn't already exist
 if (!fs.existsSync(DB_PATH)) {
