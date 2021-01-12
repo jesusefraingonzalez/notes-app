@@ -45,7 +45,7 @@ app.post('/api/notes', (req, res) => {
 
         //parse data from file into JSON
         let json = JSON.parse(data);
-        
+
         //push newNote data into json
         json.push(newNote);
 
@@ -59,16 +59,21 @@ app.post('/api/notes', (req, res) => {
 });
 
 // route for deleting notes
-app.delete('/api/notes:id', (req, res) => {
+app.delete('/api/notes/:id', (req, res) => {
     let id = req.params.id;
-    fs.readFile(path.join(__dirname, 'db.json'), (err, rawData) => {
+    fs.readFile(DB_PATH, (err, rawData) => {
         if (err) throw err;
-        let data = JSON.parse(rawData);
+        let json = JSON.parse(rawData);
+        // remove all instances of the given id from the database
+        json = JSON.stringify(json.filter(element => {
+            return !(element.title === id);
+        }));
 
-        const noteExists = (noteObject) => {
-            return noteObject.title === id;
-        };
-        console.log(data.find(noteExists));
+        fs.writeFile(DB_PATH, json, (err) => {
+            if (err) throw err;
+            console.log(`\nNote deleted from database:\n${id}\n`);     
+        });
+        res.send(`\n${id} deleted\n`)
     });
 });
 
