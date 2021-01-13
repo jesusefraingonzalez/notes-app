@@ -28,3 +28,6 @@
   
   Contact me at jesusgonzalez0797@gmail.com with any additional questions. 
   
+  ![Main Screen](./screenshots/screen1.png)
+  ![Creating a new note](./screenshots/screen2.png)
+  ![Saved notes](./screenshots/screen3.png)
