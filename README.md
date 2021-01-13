@@ -9,16 +9,16 @@
   1. [Installation](#Installation)
   2. [Usage](#Usage)
   3. [License](#License)
-  4. [Contributing](#Contributing)
-  5. [Tests](#Tests)
-  6. [Contact Information](#Questions)
+  4. [Contact Information](#Questions)
   
   ## Installation
   * Download the repository 
   * run npm i 
 
   ## Usage
-  Type your notes in the text area > Press the save button to save to the server > use the delete button on the list of notes to delete the note
+  * Type your notes in the text area 
+  * Press the save button to save to the server 
+  * Use the delete button to delete the note
 
   ## License
   This project is licensed under the MIT license.
